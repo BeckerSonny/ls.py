@@ -1,6 +1,6 @@
-import os, sys
+import os, sys, stat
 from stat import *
-import datetime
+from datetime import datetime
 
 def ls():
     # Options get all optionnal parameters like "-l"
@@ -32,6 +32,9 @@ def find_files_in_path(path, options):
         if "-l" not in options:
             print(file)
         else:
-            print(file, "an more details")
+            path_join = os.path.join(path, file)
+            file_time_last_modification = round(os.stat(path_join).st_mtime)
+            file_time_last_modification = datetime.fromtimestamp(file_time_last_modification)
+            print("{} {} {}".format(stat.filemode(os.stat(path_join).st_mode), file_time_last_modification, file))
 
 ls()
