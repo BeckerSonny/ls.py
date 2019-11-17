@@ -35,10 +35,6 @@ def find_files_in_path(path, options):
     else:
         list_of_files, path = find_files_with_prefixe(path)
         
-    if not list_of_files and not os.path.isdir(path):
-        print("No files or directorie found for this path '{}'.".format(path))
-        return False
-    
     # Loop on files and display data with options
     for file in list_of_files:
         if "-l" not in options:
@@ -67,6 +63,9 @@ def find_files_with_prefixe(path):
         #if prefixe is good add to list
         if file[:len(prefixe)] == prefixe:
             list_of_files.append(file)
+
+    if not list_of_files:
+        print("No file or directory found for this path '{}'.".format(path))
     return list_of_files, folder
 
 
